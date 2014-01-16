@@ -1,0 +1,27 @@
+/* 
+    Document   : standard
+    Created on : Jan 10, 2014, 8:53:26 PM
+    Author     : assent2
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+.bs-docs-sidenav li.active{
+    background-color: #9acfea;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+
+.bs-docs-sidenav > li.active > a:hover{
+    background-color: #95c5e0;;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+*/
+
+h1 {
+  color: red;
+}
