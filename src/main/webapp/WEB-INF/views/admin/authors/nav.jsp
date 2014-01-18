@@ -18,12 +18,16 @@
     <spring:message code="admin_authors_nav_find"/>
 </a>
 
-<a href="${pageContext.request.contextPath}/authors" class="list-group-item <%=activeResolver.isList()%>">
+<a href="${pageContext.request.contextPath}/authors/all" class="list-group-item <%=activeResolver.isAll()%>">
     <spring:message code="admin_authors_nav_list"/>
 </a>
 
-<a href="${pageContext.request.contextPath}/authors/form" class="list-group-item <%=activeResolver.isEdit()%>">
+<a href="${pageContext.request.contextPath}/authors/0?form" class="list-group-item <%=activeResolver.isEdit()%>">
     <spring:message code="admin_authors_nav_edit"/>
+</a>
+
+<a href="${pageContext.request.contextPath}/authors?form" class="list-group-item <%=activeResolver.isShow()%>">
+    <spring:message code="admin_authors_nav_create"/>
 </a>
 
 <%--

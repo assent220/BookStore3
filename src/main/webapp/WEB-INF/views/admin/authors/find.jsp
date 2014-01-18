@@ -18,7 +18,7 @@
         <div class="form-group">
             <form:label path="idAuthor" for="inputId" class="col-sm-2 control-label">id</form:label>
                 <div class="col-sm-10">
-                <form:input path="idAuthor" type="text" class="form-control" id="inputId" placeholder="id" />
+                <form:input path="idAuthor" type="text" class="form-control" id="inputId" placeholder="id"/>
             </div>
             <div class="col-sm-10">
                 <form:errors path="idAuthor" cssClass="error" />    

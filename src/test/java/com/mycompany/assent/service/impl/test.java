@@ -41,6 +41,6 @@ public class test {
         System.out.println(s);
         s = s.replaceFirst("/[-a-zA-z0-9_.:]+/", "");
         System.out.println(s);
-        System.out.println(s.matches("[a-zA-Z0-9]+/?\\d+\\?form"));
+        System.out.println(s.matches("[a-zA-Z0-9]+/\\d+\\?form"));
     }
 }

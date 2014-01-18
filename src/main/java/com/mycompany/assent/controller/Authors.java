@@ -38,19 +38,24 @@ public class Authors {
     @Inject
     private MessageSource messageSource;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String all(Model model) {
+        logger.info("start: all");
+
+        List<Author> authors = serviceAuthor.getAllAuthor();
+        model.addAttribute("authors", authors);
+
+        logger.info("end: Number of authors: " + authors.size());
+        return "authors/all";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("start: list");
         
-        
-        if (!model.asMap().containsKey("authors")) {
-            List<Author> authors = serviceAuthor.getAllAuthor();
-            model.addAttribute("authors", authors);
+        List authors = (List) model.asMap().get("authors");
 
-            logger.info("end: Number of authors: " + authors.size());
-        } else {
-            logger.info("end");
-        }
+        logger.info("end: Number of authors: " + authors.size());
         return "authors/list";
     }
 
@@ -74,8 +79,6 @@ public class Authors {
     @RequestMapping(value = "/find", method = RequestMethod.POST)
     public String find(Author author, BindingResult bindingResult, Model uiModel,
             HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
-
-
         logger.info("start: find " + author);
 
         if (bindingResult.hasErrors()) {
@@ -84,7 +87,7 @@ public class Authors {
             uiModel.addAttribute("message", message);
             uiModel.addAttribute("author", author);
             logger.info("end");
-            return "/";
+            return "authors/list";
         }
 
         uiModel.asMap().clear();
@@ -95,11 +98,10 @@ public class Authors {
 
         List<Author> listAuthor = serviceAuthor.findAuthor(author);
         redirectAttributes.addFlashAttribute("authors", listAuthor);
-        
+
         logger.info("end");
 
-
-        return "redirect:/authors/";
+        return "redirect:/authors/list";
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

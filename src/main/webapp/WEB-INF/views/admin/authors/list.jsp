@@ -15,15 +15,20 @@
 <spring:message code="data_is_not_found" var="data_is_not_found"/>
 <spring:message code="admin_authors_first_name" var="first_name"/>
 <spring:message code="admin_authors_last_name" var="last_name"/>
+<spring:message code="admin_authors_patronymic" var="patronymic"/>
+
+
 <spring:message code="admin_authors_list_header" var="title"/>
 
 <div id="admin_authors_list">
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>id</th>
                 <th>${first_name}</th>
                 <th>${last_name}</th>
+                <th>${patronymic}</th>
+                <th>action</th>
             </tr>
         </thead>
         <tbody>
@@ -34,12 +39,17 @@
                             <td>${author.idAuthor}</td>
                             <td>${author.fname}</td>
                             <td>${author.lname}</td>
+                            <td>${author.pname}</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/authors/${author.idAuthor}">show</a>/
+                                <a href="${pageContext.request.contextPath}/authors/${author.idAuthor}?form">edit</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </c:when> 
                 <c:otherwise>
                     <tr>
-                        <td colspan="3">${data_is_not_found}</td>
+                        <td colspan="4">${data_is_not_found}</td>
                     </tr>
                 </c:otherwise>
             </c:choose>

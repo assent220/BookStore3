@@ -16,30 +16,49 @@
 <spring:message code="admin_authors_first_name" var="first_name"/>
 <spring:message code="admin_authors_last_name" var="last_name"/>
 
+<spring:message code="admin_authors_patronymic" var="patronymic"/>
+
 <spring:message code="admin_authors_show_header" var="title"/>
 <spring:message code="admin_authors_show_label_update" var="label_update"/>
 
 <div id="admin_authors_show">
-    <h1>${title}</h1>
-
     <c:choose>
         <c:when test="${not empty author}">
-            <table>
-                <tr>
-                    <td>id</td>
-                    <td>${author.idAuthor}</td>
-                </tr>
-                <tr>
-                    <td>${first_name}</td>
-                    <td>${author.fname}</td>
-                </tr>
-                <tr>
-                    <td>${last_name}</td>
-                    <td>${contact.lname}</td>
-                </tr>
-            </table>
-
-            <a href="${pageContext.request.contextPath}/${author.idAuthor}?form">${label_update}</a>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"><strong>id</strong></div>
+                    <div class="col-sm-10">
+                        <div class="form-control">${author.idAuthor}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"><strong>${first_name}</strong></div>
+                    <div class="col-sm-10">
+                        <div class="form-control">${author.fname}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"><strong>${last_name}</strong></div>
+                    <div class="col-sm-10">
+                        <div class="form-control fo">${author.lname}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label"><strong>${patronymic}</strong></div>
+                    <div class="col-sm-10">
+                        <div class="form-control">${author.pname}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" 
+                                class="btn btn-default" 
+                                onclick="window.location.href = '${pageContext.request.contextPath}/authors/${author.idAuthor}?form'">
+                            Edit data
+                        </button>
+                    </div>
+                </div>
+            </div>
         </c:when>
         <c:otherwise>
             <h2>${data_is_not_found}</h2>
