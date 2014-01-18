@@ -16,4 +16,7 @@
     <definition extends="base" name="authors/show">
         <put-attribute name="content" value="/WEB-INF/views/admin/authors/show.jsp" />
     </definition>
+    <definition extends="base" name="authors/find">
+        <put-attribute name="content" value="/WEB-INF/views/admin/authors/find.jsp" />
+    </definition>
 </tiles-definitions>

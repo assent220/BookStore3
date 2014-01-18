@@ -15,7 +15,7 @@ public class ActiveResolver {
         private final String activeClass;
 
         public Authors(HttpServletRequest request, String activeClass) {
-               String str = new UrlPathHelper().getOriginatingRequestUri(request);
+            String str = new UrlPathHelper().getOriginatingRequestUri(request);
             String pattern_proj = "/[-a-zA-z0-9_.:]+/";
             pageName = str.replaceFirst(pattern_proj, "");
             this.activeClass = activeClass;
@@ -29,25 +29,28 @@ public class ActiveResolver {
             }
             return "";
         }
-        
+
         public String isFind() {
-            String pattern = "[a-zA-Z0-9]+/?";
+            String pattern = "[a-zA-Z0-9]+/find";
 
             if (pageName.matches(pattern)) {
                 return activeClass;
             }
             return "";
         }
+
         public String isEdit() {
-            String pattern = "[a-zA-Z0-9]+/?";
+            String pattern1 = "[a-zA-Z0-9]+/\\d+\\?form";
+            String pattern2 = "[a-zA-Z0-9]+/form";
 
-            if (pageName.matches(pattern)) {
+            if (pageName.matches(pattern1) || pageName.matches(pattern2)) {
                 return activeClass;
             }
             return "";
         }
+
         public String isShow() {
-            String pattern = "[a-zA-Z0-9]+/?";
+            String pattern = "[a-zA-Z0-9]+/?\\d+";
 
             if (pageName.matches(pattern)) {
                 return activeClass;

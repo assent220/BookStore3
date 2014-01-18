@@ -4,6 +4,7 @@ package com.mycompany.assent.service;
 import com.mycompany.assent.domain.Author;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -15,6 +16,8 @@ public interface ServiceAuthor {
 
     Author getAuthor(Serializable id);
 
+    List<Author> findAuthor(Author author);
+    
     List<Author> getAllAuthor();
 
     void deleteAuthor(Author author);

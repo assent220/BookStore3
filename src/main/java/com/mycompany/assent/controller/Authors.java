@@ -17,9 +17,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -39,11 +41,16 @@ public class Authors {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("start: list");
+        
+        
+        if (!model.asMap().containsKey("authors")) {
+            List<Author> authors = serviceAuthor.getAllAuthor();
+            model.addAttribute("authors", authors);
 
-        List<Author> authors = serviceAuthor.getAllAuthor();
-        model.addAttribute("authors", authors);
-
-        logger.info("end: Number of authors: " + authors.size());
+            logger.info("end: Number of authors: " + authors.size());
+        } else {
+            logger.info("end");
+        }
         return "authors/list";
     }
 
@@ -64,6 +71,45 @@ public class Authors {
         return "authors/show";
     }
 
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public String find(Author author, BindingResult bindingResult, Model uiModel,
+            HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
+
+
+        logger.info("start: find " + author);
+
+        if (bindingResult.hasErrors()) {
+            Message message = new Message("error",
+                    messageSource.getMessage("admin_authors_find_fail", new Object[]{}, locale));
+            uiModel.addAttribute("message", message);
+            uiModel.addAttribute("author", author);
+            logger.info("end");
+            return "/";
+        }
+
+        uiModel.asMap().clear();
+
+        Message message = new Message("success",
+                messageSource.getMessage("admin_authors_find_success", new Object[]{}, locale));
+        redirectAttributes.addFlashAttribute("message", message);
+
+        List<Author> listAuthor = serviceAuthor.findAuthor(author);
+        redirectAttributes.addFlashAttribute("authors", listAuthor);
+        
+        logger.info("end");
+
+
+        return "redirect:/authors/";
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String findForm(Model uiModel) {
+        logger.info("start: find");
+        uiModel.addAttribute("author", new Author());
+        logger.info("end");
+        return "authors/find";
+    }
+
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
     public String update(Author author, BindingResult bindingResult, Model uiModel,
             HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale) {
@@ -73,7 +119,7 @@ public class Authors {
             Message message = new Message("error",
                     messageSource.getMessage("admin_authors_update_save_fail", new Object[]{}, locale));
             uiModel.addAttribute("message", message);
-            uiModel.addAttribute("contact", author);
+            uiModel.addAttribute("author", author);
             logger.info("end");
             return "authors/update";
         }

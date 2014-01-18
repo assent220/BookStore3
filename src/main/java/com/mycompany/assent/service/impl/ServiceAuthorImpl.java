@@ -5,6 +5,7 @@ import com.mycompany.assent.domain.Author;
 import com.mycompany.assent.service.ServiceAuthor;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,19 @@ public class ServiceAuthorImpl implements ServiceAuthor {
         return daoAuthor.get(id);
     }
 
+    
+    @Transactional(readOnly = true)
+    @Override
+    public List<Author> findAuthor(Author author) {
+        return daoAuthor.find(author);
+    }
+    
     @Transactional(readOnly = true)
     @Override
     public List<Author> getAllAuthor() {
         return daoAuthor.getAll();
     }
-
+    
     @Transactional
     @Override
     public void deleteAuthor(Author author) {
